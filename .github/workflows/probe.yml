@@ -1,10 +1,17 @@
 name: probe
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+  pull_request:
+    types: [opened, synchronize, reopened, edited, labeled, unlabeled]
 concurrency:
-  group: probe-fixed-group
-  cancel-in-progress: false
+  group: probe-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' && github.event.action == 'synchronize' }}
 jobs:
   probe-job:
+    runs-on: ubuntu-latest
+    steps:
+      - run: sleep 90
+  probe-job-2:
     runs-on: ubuntu-latest
     steps:
       - run: sleep 90
