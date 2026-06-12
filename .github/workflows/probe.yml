@@ -1,0 +1,10 @@
+name: probe
+on: workflow_dispatch
+concurrency:
+  group: probe-fixed-group
+  cancel-in-progress: false
+jobs:
+  probe-job:
+    runs-on: ubuntu-latest
+    steps:
+      - run: sleep 90
